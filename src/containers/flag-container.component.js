@@ -4,8 +4,8 @@ import CountryFlagList from '../presentational/flag-list.component';
 import { getCountries, searchCountries, deleteCountry } from '../actions/actions-countries';
 
 class CountryFlagContainer extends Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
     }
 
     componentDidMount() {
@@ -33,11 +33,9 @@ class CountryFlagContainer extends Component {
     }
 }
 
-const mapStateToProps = function (store) {
-    return {
+const mapStateToProps = (store) => ({
         countries: store.countriesReducer.countries,
         visibleCountries: store.countriesReducer.visibleCountries
-    };
-};
+    });
 
 export default connect(mapStateToProps)(CountryFlagContainer);

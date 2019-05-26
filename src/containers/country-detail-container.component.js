@@ -4,12 +4,13 @@ import { getCountry } from '../actions/actions-countries';
 import CountryDetails from '../presentational/country-details.component';
 
 class CountryDetailsContainer extends Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
     }
 
     componentDidMount() {
-        this.props.dispatch(getCountry(this.props.params.id));
+        const { dispatch, params } = this.props;
+        dispatch(getCountry(params.id));
     }
 
     render() {
@@ -19,10 +20,6 @@ class CountryDetailsContainer extends Component {
     }
 }
 
-const mapStateToProps = function (store) {
-    return {
-        selectedCountry: store.countriesReducer.selectedCountry
-    };
-};
+const mapStateToProps = (store) => ({selectedCountry: store.countriesReducer.selectedCountry});
 
 export default connect(mapStateToProps)(CountryDetailsContainer);

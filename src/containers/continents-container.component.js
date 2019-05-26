@@ -4,8 +4,12 @@ import { setContinent, deleteCountry } from '../actions/actions-countries';
 import CountryFlagList from '../presentational/flag-list.component';
 
 class ContinentsContainer extends Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
+    }
+
+    componentDidMount() {
+        this.props.dispatch(setContinent('Europa'));
     }
 
     chooseContinent(event) {
@@ -16,10 +20,6 @@ class ContinentsContainer extends Component {
         this.props.dispatch(deleteCountry(id));
     }
 
-    componentDidMount() {
-        this.props.dispatch(setContinent('Europa'));
-    }
-
     render() {
         return (
             <div>
@@ -27,16 +27,15 @@ class ContinentsContainer extends Component {
                     <option value="Europa">Europa</option>
                     <option value="Afryka">Afryka</option>
                 </select>
-                <CountryFlagList countries={this.props.visibleCountries} deleteCountry={this.deleteCountry.bind(this)} />
+                <CountryFlagList 
+                    countries={this.props.visibleCountries} 
+                    deleteCountry={this.deleteCountry.bind(this)} 
+                />
             </div>
         )
     }
 }
 
-const mapStateToProps = function (store) {
-    return {
-        visibleCountries: store.countriesReducer.visibleCountries
-    };
-};
+const mapStateToProps = (store) => ({visibleCountries: store.countriesReducer.visibleCountries});
 
 export default connect(mapStateToProps)(ContinentsContainer);
